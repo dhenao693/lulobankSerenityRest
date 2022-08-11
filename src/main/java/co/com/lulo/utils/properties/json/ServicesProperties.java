@@ -5,10 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class JsonProperties {
+public class ServicesProperties {
 
     private static Properties prop = null;
-    private JsonProperties() {
+    private ServicesProperties() {
         throw new IllegalStateException();
     }
     public static void cargarPropiedades() throws IOException {
@@ -16,11 +16,16 @@ public class JsonProperties {
             prop = new Properties();
             File objclasspathRoot = new File(System.getProperty("user.dir"));
             String strFilePath = objclasspathRoot.getAbsolutePath();
-            prop.load(new FileReader(strFilePath + "/json.properties"));
+            prop.load(new FileReader(strFilePath + "/services.properties"));
         }
     }
     public static String getJsonResponseDefaulthPaht() throws IOException {
         cargarPropiedades();
         return prop.getProperty("JsonResponseDefaultPath");
+    }
+
+    public static String getPropertie(String propertie) throws IOException {
+        cargarPropiedades();
+        return prop.getProperty(propertie);
     }
 }

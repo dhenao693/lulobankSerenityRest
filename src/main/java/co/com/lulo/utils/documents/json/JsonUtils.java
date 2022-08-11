@@ -1,6 +1,6 @@
 package co.com.lulo.utils.documents.json;
 
-import co.com.lulo.utils.properties.json.JsonProperties;
+import co.com.lulo.utils.properties.json.ServicesProperties;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,14 +28,14 @@ public class JsonUtils {
 
     public static File readJsonResponsePersonal(String jsonString, String stringJsonName) throws IOException {
         createFileJsonResponsePersonalName(jsonString,stringJsonName);
-        return new File(JsonProperties.getJsonResponseDefaulthPaht() +
+        return new File(ServicesProperties.getJsonResponseDefaulthPaht() +
                 String.format(ARCHIVO_JSON_FORMAT,stringJsonName));
     }
 
     public static void createFileJsonResponsePersonalName(String stringJson, String stringJsonName) {
         FileWriter flwriter = null;
         try {
-            flwriter = new FileWriter(JsonProperties.getJsonResponseDefaulthPaht() +
+            flwriter = new FileWriter(ServicesProperties.getJsonResponseDefaulthPaht() +
                     String.format(ARCHIVO_JSON_FORMAT,stringJsonName));
             BufferedWriter bfwriter = new BufferedWriter(flwriter);
             bfwriter.write(stringJson);
@@ -55,14 +55,14 @@ public class JsonUtils {
 
     public static File readJsonResponse(String jsonString) throws IOException {
         createFileJsonResponse(jsonString);
-        return new File(JsonProperties.getJsonResponseDefaulthPaht() + ARCHIVO_JSON_DEFAULT);
+        return new File(ServicesProperties.getJsonResponseDefaulthPaht() + ARCHIVO_JSON_DEFAULT);
     }
 
 
     public static void createFileJsonResponse(String stringJson) {
         FileWriter flwriter = null;
         try {
-            flwriter = new FileWriter(JsonProperties.getJsonResponseDefaulthPaht() + ARCHIVO_JSON_DEFAULT);
+            flwriter = new FileWriter(ServicesProperties.getJsonResponseDefaulthPaht() + ARCHIVO_JSON_DEFAULT);
             BufferedWriter bfwriter = new BufferedWriter(flwriter);
             bfwriter.write(stringJson);
             bfwriter.close();
@@ -82,7 +82,7 @@ public class JsonUtils {
     public static void createFileJsonRequestAndResponse(String stringJsonRequest,String stringJsonResponse, String stringJsonName) {
         FileWriter flwriter = null;
         try {
-            flwriter = new FileWriter(JsonProperties.getJsonResponseDefaulthPaht() +
+            flwriter = new FileWriter(ServicesProperties.getJsonResponseDefaulthPaht() +
                     String.format(ARCHIVO_JSON_FORMAT,stringJsonName));
             BufferedWriter bfwriter = new BufferedWriter(flwriter);
             bfwriter.write(RESPONSE + stringJsonRequest + SEPARADOR + RESPONSE + stringJsonResponse);
