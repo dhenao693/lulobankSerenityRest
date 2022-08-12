@@ -28,6 +28,7 @@ public class PostServiceInteraction implements Interaction {
                 request -> request.contentType(ContentType.JSON)
                         .body(requestConsume).log().all().relaxedHTTPSValidation()));
         SerenityRest.lastResponse().prettyPrint();
+        ServiceResponse.setRequest(requestConsume);
         ServiceResponse.setResponse(SerenityRest.lastResponse().getBody().asString());
     }
 

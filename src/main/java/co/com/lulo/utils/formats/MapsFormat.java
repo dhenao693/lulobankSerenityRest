@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class MapsFormat {
     private static  ObjectMapper mapper = new ObjectMapper(); // jackson's objectmapper
-
     public static Employee employeeToModel(Map<String,String> map){
         return mapper.convertValue(map, Employee.class);
     }

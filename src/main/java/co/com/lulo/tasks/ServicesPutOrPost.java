@@ -19,8 +19,8 @@ public class ServicesPutOrPost implements Task {
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Check.whether(serviceType.equalsIgnoreCase("POST"))
-                .andIfSo(PostServiceInteraction.callPostServicesIn("{\"name\":\"testDaniel\",\"salary\":\"123\",\"age\":\"23\"}"))
-                .otherwise(PutServiceInteraction.callPutServicesIn(""))
+                .andIfSo(PostServiceInteraction.callPostServicesIn(request))
+                .otherwise(PutServiceInteraction.callPutServicesIn(request))
         );
     }
 

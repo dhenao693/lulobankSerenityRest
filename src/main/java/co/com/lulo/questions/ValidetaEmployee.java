@@ -40,7 +40,6 @@ public class ValidetaEmployee implements Question<Boolean> {
 //                             "}"
                      ServiceResponse.getResponse()
                      ,"Employee"), GetEmployeeModel.class);
-            System.out.println();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

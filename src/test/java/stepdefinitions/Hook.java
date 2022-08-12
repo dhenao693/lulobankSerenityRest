@@ -13,13 +13,11 @@ import static net.serenitybdd.screenplay.actors.OnStage.setTheStage;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 
 public class Hook {
-
     @Before
     public static void inicializar(){
         setTheStage(new OnlineCast());
         theActorCalled(ACTOR_DEFAULT);
     }
-
     @Given("^the (.*) send a request to (.*)$")
     public void theUserSendARequestToEmployees(String user, String path) throws Exception {
         theActorCalled(user).whoCan(CallAnApi.at(String.format(getPropertie(END_POINT),path)));
