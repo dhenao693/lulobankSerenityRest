@@ -5,6 +5,7 @@ import co.com.lulo.interaction.services.GetServiceInteraction;
 import co.com.lulo.models.employees.Employee;
 import co.com.lulo.models.employees.EmployeesList;
 import co.com.lulo.questions.ValidateTheStatus;
+import co.com.lulo.questions.ValidetaEmployee;
 import co.com.lulo.questions.ValidetaEmployeesList;
 import co.com.lulo.tasks.ServicesPutOrPost;
 import co.com.lulo.utils.formats.MapsFormat;
@@ -46,4 +47,9 @@ public class ServicesStepDefinition {
 
     }
 
+    @Then("validate employee")
+    public void validateEmployee( List<Map<String,String>> employee) {
+        theActorInTheSpotlight().should(seeThat(ValidetaEmployee.of(employee)));
+
+    }
 }
