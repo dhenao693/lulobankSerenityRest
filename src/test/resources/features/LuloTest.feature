@@ -49,6 +49,6 @@ Feature: Lulo
       | <status> | <message> |
 
     Examples:
-      | path   | request | id | statusService | status  | message                       |
-      | delete |         | 2  | 200           | success | successfully! deleted Records |
+      | path   | id | statusService | status  | message                       |
+      | delete | 2  | 200           | success | successfully! deleted Records |
 
