@@ -1,15 +1,15 @@
 package stepdefinitions;
 
 
-import co.com.lulo.interaction.services.DeleteServiceInteraction;
-import co.com.lulo.interaction.services.GetServiceInteraction;
+import co.com.lulo.interaction.services.CallDelete;
+import co.com.lulo.interaction.services.CallGet;
 import co.com.lulo.questions.ValidateCreate;
 import co.com.lulo.questions.ValidateMassage;
 import co.com.lulo.questions.ValidateStatusMassage;
 import co.com.lulo.questions.ValidateTheStatus;
 import co.com.lulo.questions.ValidetaEmployee;
 import co.com.lulo.questions.ValidetaEmployeesList;
-import co.com.lulo.tasks.ServicesPutOrPost;
+import co.com.lulo.tasks.CallServices;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -26,22 +26,22 @@ public class ServicesStepDefinition {
 
     @When("^the service is type get$")
     public void whenTheServiceIsTypeGet() throws Exception {
-        theActorInTheSpotlight().attemptsTo(GetServiceInteraction.callGetServicesIn());
+        theActorInTheSpotlight().attemptsTo(CallGet.service());
     }
 
     @When("^the service is type delete")
     public void whenTheServiceIsTypeDelete() throws Exception {
-        theActorInTheSpotlight().attemptsTo(DeleteServiceInteraction.callDeleteServices());
+        theActorInTheSpotlight().attemptsTo(CallDelete.service());
     }
 
     @When("^the service is type (.*) with request (.*)")
     public void TheServiceIsType(String typeServices, String request) throws Exception {
-        theActorInTheSpotlight().attemptsTo(ServicesPutOrPost.called(typeServices).withRequest(request));
+        theActorInTheSpotlight().attemptsTo(CallServices.called(typeServices).withRequest(request));
     }
 
     @Then("^status (.*)$")
     public void status(String statusCode) throws Exception {
-       // theActorInTheSpotlight().should(seeThat(ValidateTheStatus.code(), equalTo(statusCode)));
+        theActorInTheSpotlight().should(seeThat(ValidateTheStatus.code(), equalTo(statusCode)));
     }
 
     @Then("validate create response")
@@ -63,8 +63,8 @@ public class ServicesStepDefinition {
 
     @Then("validate status and massage")
     public void validateStatusAndMassage( List<Map<String,String>> dataDelete) {
-        //theActorInTheSpotlight().should(seeThat(ValidateMassage.ofDelete(), equalTo(dataDelete.get(0).get("massage"))));
-        //theActorInTheSpotlight().should(seeThat(ValidateStatusMassage.ofDelete(), equalTo(dataDelete.get(0).get("status"))));
+        theActorInTheSpotlight().should(seeThat(ValidateMassage.ofDelete(), equalTo(dataDelete.get(0).get("massage"))));
+        theActorInTheSpotlight().should(seeThat(ValidateStatusMassage.ofDelete(), equalTo(dataDelete.get(0).get("status"))));
     }
 
 }

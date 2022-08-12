@@ -6,18 +6,17 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Post;
 
-public class PostServiceInteraction implements Interaction {
+public class CallPost implements Interaction {
 
     private String requestConsume;
 
-    public PostServiceInteraction(String requestConsume) {
+    public CallPost(String requestConsume) {
         this.requestConsume = requestConsume;
     }
 
-    public PostServiceInteraction andRequest(String requestConsume) {
+    public CallPost andRequest(String requestConsume) {
         this.requestConsume = requestConsume;
         return this;
     }
@@ -32,7 +31,7 @@ public class PostServiceInteraction implements Interaction {
         ServiceResponse.setResponse(SerenityRest.lastResponse().getBody().asString());
     }
 
-    public static PostServiceInteraction callPostServicesIn(String requestConsume) {
-        return Tasks.instrumented(PostServiceInteraction.class, requestConsume);
+    public static CallPost service(String requestConsume) {
+        return Tasks.instrumented(CallPost.class, requestConsume);
     }
 }

@@ -8,7 +8,7 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.rest.interactions.Delete;
 
-public class DeleteServiceInteraction  implements Task {
+public class CallDelete implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(Delete.from("").with(
@@ -19,7 +19,7 @@ public class DeleteServiceInteraction  implements Task {
         ServiceResponse.setResponse(SerenityRest.lastResponse().getBody().asString());
     }
 
-    public static DeleteServiceInteraction callDeleteServices() {
-        return Tasks.instrumented(DeleteServiceInteraction.class);
+    public static CallDelete service() {
+        return Tasks.instrumented(CallDelete.class);
     }
 }
