@@ -1,24 +1,24 @@
 package co.com.lulo.interaction.services;
 
 import co.com.lulo.models.entitys.ServiceResponse;
+import io.restassured.http.ContentType;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.rest.abiities.CallAnApi;
+import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Put;
 
 public class PutServiceInteraction implements Task {
 
-    private String endPointOrWSDL;
     private String contenType;
     private String accept;
     private String headerKey;
     private String headerValue;
     private String requestConsume;
 
-    public PutServiceInteraction(String endPointOrWSDL) {
-        this.endPointOrWSDL = endPointOrWSDL;
+    public PutServiceInteraction(String requestConsume) {
+        this.requestConsume = requestConsume;
     }
 
     public PutServiceInteraction withMessageInJson() {
@@ -39,16 +39,11 @@ public class PutServiceInteraction implements Task {
         return this;
     }
 
-    public PutServiceInteraction andRequest(String requestConsume) {
-        this.requestConsume = requestConsume;
-        return this;
-    }
+
     @Override
     public <T extends Actor> void performAs(T actor) {
-
-        actor.whoCan(CallAnApi.at(endPointOrWSDL));
         actor.attemptsTo(Put.to("").with(
-                request -> request.contentType(contenType).accept(accept)
+                request -> request.contentType(ContentType.JSON)
                         .header(headerKey, headerValue)
                         .body(requestConsume).log().all().relaxedHTTPSValidation())
         );
@@ -56,8 +51,8 @@ public class PutServiceInteraction implements Task {
         ServiceResponse.setResponse(SerenityRest.lastResponse().getBody().asString());
     }
 
-    public static PutServiceInteraction callPutServicesIn(String endPoindOrWSDL) {
-        return Tasks.instrumented(PutServiceInteraction.class, endPoindOrWSDL);
+    public static PutServiceInteraction callPutServicesIn(String requestConsume) {
+        return Tasks.instrumented(PutServiceInteraction.class, requestConsume);
     }
 
 }

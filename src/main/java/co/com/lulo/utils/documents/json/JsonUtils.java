@@ -28,14 +28,14 @@ public class JsonUtils {
 
     public static File readJsonResponsePersonal(String jsonString, String stringJsonName) throws IOException {
         createFileJsonResponsePersonalName(jsonString,stringJsonName);
-        return new File(ServicesProperties.getJsonResponseDefaulthPaht() +
+        return new File(String.format(ServicesProperties.getJsonResponseDefaulthPaht(),System.getProperty("user.dir")) +
                 String.format(ARCHIVO_JSON_FORMAT,stringJsonName));
     }
 
     public static void createFileJsonResponsePersonalName(String stringJson, String stringJsonName) {
         FileWriter flwriter = null;
         try {
-            flwriter = new FileWriter(ServicesProperties.getJsonResponseDefaulthPaht() +
+            flwriter = new FileWriter(String.format(ServicesProperties.getJsonResponseDefaulthPaht(),System.getProperty("user.dir")) +
                     String.format(ARCHIVO_JSON_FORMAT,stringJsonName));
             BufferedWriter bfwriter = new BufferedWriter(flwriter);
             bfwriter.write(stringJson);
@@ -62,7 +62,7 @@ public class JsonUtils {
     public static void createFileJsonResponse(String stringJson) {
         FileWriter flwriter = null;
         try {
-            flwriter = new FileWriter(ServicesProperties.getJsonResponseDefaulthPaht() + ARCHIVO_JSON_DEFAULT);
+            flwriter = new FileWriter(String.format(ServicesProperties.getJsonResponseDefaulthPaht(),System.getProperty("user.dir")) + ARCHIVO_JSON_DEFAULT);
             BufferedWriter bfwriter = new BufferedWriter(flwriter);
             bfwriter.write(stringJson);
             bfwriter.close();

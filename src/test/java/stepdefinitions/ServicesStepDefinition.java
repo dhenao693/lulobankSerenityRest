@@ -1,38 +1,54 @@
 package stepdefinitions;
 
-import co.com.lulo.interaction.services.GetServiceInteraction;
-import co.com.lulo.models.entitys.ServiceResponse;
-import co.com.lulo.utils.constans.GeneralConstant;
-import cucumber.api.PendingException;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import net.serenitybdd.rest.SerenityRest;
-import net.serenitybdd.screenplay.rest.abiities.CallAnApi;
-import net.serenitybdd.screenplay.rest.interactions.Get;
 
-import static net.serenitybdd.screenplay.actors.OnStage.*;
+import co.com.lulo.interaction.services.GetServiceInteraction;
+import co.com.lulo.models.employees.Employee;
+import co.com.lulo.models.employees.EmployeesList;
+import co.com.lulo.questions.ValidateTheStatus;
+import co.com.lulo.questions.ValidetaEmployeesList;
+import co.com.lulo.tasks.ServicesPutOrPost;
+import co.com.lulo.utils.formats.MapsFormat;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.hamcrest.Matchers;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.Matchers.*;
 
 public class ServicesStepDefinition {
 
 
-    @When("^When the service is type (.*)$")
-    public void whenTheServiceIsType(String typeServices) throws Exception {
-        System.out.println(theActorInTheSpotlight().recall(GeneralConstant.END_POINT).toString());
-        //theActorInTheSpotlight().attemptsTo(GetServiceInteraction.callGetServicesIn(theActorInTheSpotlight().recall(GeneralConstant.END_POINT).toString()).withMessageInJson());
-        theActorInTheSpotlight().whoCan(CallAnApi.at("http://dummy.restapiexample.com/api/v1"));
-        theActorInTheSpotlight().attemptsTo(Get.resource("/employees/1").with(
-                request -> request.contentType("application/json; charset=UTF-8").accept("*/*")
-                        .log().all().relaxedHTTPSValidation())
-        );
-        SerenityRest.lastResponse().prettyPrint();
+    @When("^When the service is type get$")
+    public void whenTheServiceIsTypeGet() throws Exception {
+        theActorInTheSpotlight().attemptsTo(GetServiceInteraction.callGetServicesIn());
+    }
 
+    @When("^When the service is type (.*) with request (.*)")
+    public void whenTheServiceIsType(String typeServices, String request) throws Exception {
+        theActorInTheSpotlight().attemptsTo(ServicesPutOrPost.called(typeServices).withRequest(request));
     }
 
     @Then("^status (.*)$")
-    public void status(int arg1) throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void status(String statusCode) throws Exception {
+        //theActorInTheSpotlight().should(seeThat(ValidateTheStatus.code(), equalTo(statusCode)));
+    }
+
+//    @Then("^validate employees list, (.*) and (.*)$")
+//    public void validateEmployeesList(String status, String massage, List<Employee> employees) throws Exception {
+//        theActorInTheSpotlight().should(seeThat(ValidetaEmployeesList.of(employees)));
+//    }
+
+    @Then("validate employees list, status and message")
+    public void validateEmployeesList( List<Map<String,String>> employees) {
+
+        EmployeesList employeesList = MapsFormat.employeesList("status", "massage",employees);
+        throw new io.cucumber.java.PendingException();
     }
 
 }
