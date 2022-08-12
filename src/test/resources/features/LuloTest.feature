@@ -6,11 +6,10 @@ Feature: Lulo
     Given the user send a request to <path>
     When When the service is type get
     Then status <statusService>
-    And validate employees list, status and message
+    And validate employees list
       | id | employee_name | employee_salary | employee_age | profile_image |
       | 1  | Tiger Nixon   | 320800          | 61           |               |
-      | 1  | Tiger Nixon   | 320800          | 61           |               |
-
+      | 3  | Ashton Cox    | 86000           | 66           |               |
 
     Examples:
       | path      | statusService | status  | message |

@@ -39,16 +39,11 @@ public class ServicesStepDefinition {
         //theActorInTheSpotlight().should(seeThat(ValidateTheStatus.code(), equalTo(statusCode)));
     }
 
-//    @Then("^validate employees list, (.*) and (.*)$")
-//    public void validateEmployeesList(String status, String massage, List<Employee> employees) throws Exception {
-//        theActorInTheSpotlight().should(seeThat(ValidetaEmployeesList.of(employees)));
-//    }
 
-    @Then("validate employees list, status and message")
+    @Then("validate employees list")
     public void validateEmployeesList( List<Map<String,String>> employees) {
+        theActorInTheSpotlight().should(seeThat(ValidetaEmployeesList.of(employees)));
 
-        EmployeesList employeesList = MapsFormat.employeesList("status", "massage",employees);
-        throw new io.cucumber.java.PendingException();
     }
 
 }
